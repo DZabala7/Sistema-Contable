@@ -4,7 +4,8 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',            // Usuario root
     password: 'password',    // Contraseña para MySQL
-    database: 'contable_db'  // Nombre de la base de datos
+    database: 'contable_db',  // Nombre de la base de datos
+    port: 3306
 });
 
 connection.connect((err) => {
