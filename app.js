@@ -13,6 +13,11 @@ app.use(session({
 // Middleware para leer datos del formulario
 app.use(express.urlencoded({ extended: false }));
 
+
+
+app.use(express.static('public'));
+
+
 // Configurar motor de vistas
 app.set('view engine', 'ejs');
 
