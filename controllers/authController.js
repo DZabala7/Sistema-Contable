@@ -37,7 +37,7 @@ const authController = {
 
      // Middleware para verificar si el usuario es administrador
      isAdmin: (req, res, next) => {
-        if (req.session.rol === 'admin') {
+        if (req.session.rol_id === 'admin') {
             return next();  // Si es administrador, continuar con la acción
         }
         return res.status(403).send('Acceso denegado: No tienes permisos de administrador');
