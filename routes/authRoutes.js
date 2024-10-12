@@ -42,12 +42,57 @@ router.get('/dashboard', (req, res) => {
     if (!req.session.username) {
         return res.redirect('/login');
     }
+    
     res.render('dashboard', { role: req.session.role_name });
+
 });
 
 // Ruta de ejemplo protegida para el administrador
 router.get('/admin', authController.isAdmin, (req, res) => {
     res.send('Bienvenido administrador');
 });
+// Ruta agregar cuenta
+router.get('/agregar-cuenta',(req , res ) => {
+    res.render('agregarCuenta');
+})
+router.post('/agregar-cuenta', (req, res) => {
+    const { cuenta, tipo, recibe_saldo } = req.body;
+
+    // Inserta la nueva cuenta en la base de datos
+    const query = `INSERT INTO cuentas (cuenta, tipo, recibe_saldo, saldo_actual) VALUES (?, ?, ?, ?)`;
+
+    // Saldo inicial de la cuenta cuando se crea
+    const saldoInicial = 0.0;
+
+    connection.query(query, [cuenta, tipo, recibe_saldo, saldoInicial], (err, result) => {
+        if (err) {
+            console.error('Error al agregar la cuenta:', err);
+            return res.status(500).send('Error al procesar la solicitud');
+        }
+
+        // Redirige al dashboard u otra página después de agregar la cuenta
+        res.redirect('/dashboard');
+    });
+});
+
+router.get('/visualizar-plan-cuentas', (req , res) => {
+    const query = 'SELECT * FROM cuentas';
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al obtener las cuentas:', err);
+            return res.status(500).send('Error al procesar la solicitud');
+        }
+
+        // Renderiza la vista y pasa los datos de las cuentas
+        res.render('visualizarCuentas', { cuentas: results });
+    });
+});
+
+
+//ruta agregar asiento
+router.get('/agregar-asiento', (req , res)=>{
+    res.render('agregar-asiento');
+})
+
 
 module.exports = router;

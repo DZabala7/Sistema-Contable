@@ -24,6 +24,7 @@ app.use(authRoutes);
 
 // Proteger rutas (Ejemplo)
 app.get('/dashboard', (req, res) => {
+    console.log('holaaaaaa')
     if (!req.session.userId) {
         return res.redirect('/login'); // Redirige si el usuario no está logueado
     }

@@ -10,12 +10,24 @@
     <div class="container mt-5">
         <h1>Bienvenido al Dashboard</h1>
         <p>Tu rol es: <strong><%= role %></strong></p>
+        <div class="mt-4">
+            
+            <!-- Opciones especiales para los administradores -->
+            <% if (role === 'admin') { %>
+                <a href="/agregar-cuenta" class="btn btn-primary me-2">Agregar Cuenta</a> 
+                <a href="/eliminar-cuenta" class="btn btn-primary me-2">Eliminar Cuenta</a>
+                <a href="/reporte-librod" class="btn btn-primary me-2">Reporte libro diario</a>
+                <a href="/reporte-librom" class="btn btn-primary me-2">Reporte libro mayor</a>
+                <a href="/agregar-asiento" class="btn btn-primary me-2">Agregar Asiento</a>
+                <a href="/visualizar-plan-cuentas" class="btn btn-primary me-2">Visualizar Plan de Cuentas</a>
+            <% } %>
 
-        <% if (role === 'admin') { %>
-            <a href="/admin" class="btn btn-primary">Ir al Panel de Administración</a>
-        <% } else { %>
-            <p>No tienes acceso al Panel de Administración.</p>
-        <% } %>
+            <!-- Opciones para los usuarios regulares -->
+            <% if (role === 'usuario') { %>
+                <a href="/agregar-asiento" class="btn btn-primary me-2">Agregar Asiento</a>
+                <a href="/visualizar-plan-cuentas" class="btn btn-primary me-2">Visualizar Plan de Cuentas</a>
+            <% } %>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
